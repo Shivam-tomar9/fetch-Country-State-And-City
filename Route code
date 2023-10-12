@@ -1,0 +1,2 @@
+ Route::post('api/fetch-state','fetchState');
+    Route::post('api/fetch-cities','fetchCity');
