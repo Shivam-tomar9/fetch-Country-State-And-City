@@ -1,0 +1,294 @@
+@extends('website.layout.master')
+@section('content')
+<style>
+    #fade-message {
+        animation: fadeOut 6s forwards; 
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+</style>
+
+
+    <div class="preloader">
+        <img class="preloader__image" width="60" src="assets/images/loader.png" alt="" />
+    </div>
+
+    <div class="page-wrapper">
+
+        <!--Site Header Start-->
+       
+
+        <div class="stricky-header stricked-menu main-menu">
+            <div class="sticky-header__content"></div>
+        </div>
+        <!--Site Header End-->
+
+        <section class="page-header">
+            <div class="page-header-bg" style="background-image: url(assets/images/backgrounds/page-header-bg.jpg)">
+            </div>
+            <div class="container">
+                <div class="page-header__inner">
+                    <h2>Register</h2>
+                    <ul class="thm-breadcrumb list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><span>/</span></li>
+                        <li class="active">Register</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-page">
+            <div class="container">
+                <div class="row justify-content-center">
+                    @if(session('success'))
+                    <div class='alert alert-success' id="fade-message">
+                             {{session('success')}}
+                    </div>
+                    @endif
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="contact-page__right">
+                            <form action="{{route('store-user')}}" method="post" class="comment-one__form contact-form-validated" novalidate="novalidate">
+                              @csrf
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="comment-form__input-box">
+                                            <input type="text" placeholder="Enter First Name" name="name">
+                                        </div>
+                                        @error('name')
+                                                <span id="messageDiv" style="display: none;" class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                        <div class="comment-form__input-box">
+                                            <input type="text" placeholder="Enter Last Name" name="last_name">
+                                        </div>
+                                        @error('last_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <input type="email" placeholder="Enter Email Address" name="email">
+                                        </div>
+                                        @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <input type="text" placeholder="Enter Phone Number" name="phone">
+                                        </div>
+                                        @error('phone')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <select name="user_register">
+                                                <option value="" >Register as 
+
+                                                </option>
+                                                @foreach ($usersRole as $userRole)
+                                                    <option value="{{ $userRole->id }}">{{ $userRole->user_role }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('user_register')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <select name="" id="country-dd">
+                                                <option value="" >Select Country
+
+                                                </option>
+                                                @foreach ($countries as $data)
+                                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('user_register')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <select name="" id="state-dd">
+                                                {{-- <option value="" >Select State
+
+                                                </option>
+                                                @foreach ($countries as $data)
+                                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+                                        @error('user_register')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <select name="" id="city-dd">
+                                                {{-- <option value="" >Select City
+
+                                                </option>
+                                                @foreach ($countries as $data)
+                                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+                                        @error('user_register')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                            
+                            
+                                    
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box">
+                                            <input type="password" placeholder="Enter Password" name="password">
+                                        </div>
+                                        @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__input-box mb-2">
+                                            <input type="password" placeholder="Enter Confirm Password" name="password_confirmation">
+                                        </div>
+                                        @error('confirm_password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="mydryking-register-forgot">
+                                            <p>Already have an account? <a href="{{route('mylogin')}}">Login</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="comment-form__btn-box">
+                                            <button type="submit" class="thm-btn comment-form__btn">Register<span class="icon-right-arrow"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Site Footer Start-->
+       
+        <!--Site Footer End-->
+
+
+    </div><!-- /.page-wrapper -->
+
+
+    <div class="mobile-nav__wrapper">
+        <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+        <!-- /.mobile-nav__overlay -->
+        <div class="mobile-nav__content">
+            <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+
+            <div class="logo-box">
+                <a href="index.html" aria-label="logo image">
+                    <img src="assets/images/resources/logo.png" alt="" />
+                </a>
+            </div>
+            <!-- /.logo-box -->
+            <div class="mobile-nav__container"></div>
+            <!-- /.mobile-nav__container -->
+
+            <ul class="mobile-nav__contact list-unstyled">
+                <li>
+                    <i class="fa fa-envelope"></i>
+                    <a href="#">mydryking@example.com</a>
+                </li>
+                <li>
+                    <i class="fa fa-phone-alt"></i>
+                    <a href="#">+91987654321</a>
+                </li>
+            </ul><!-- /.mobile-nav__contact -->
+            <div class="mobile-nav__top">
+                <div class="mobile-nav__social">
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-facebook-square"></a>
+                    <a href="#" class="fab fa-pinterest-p"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                </div><!-- /.mobile-nav__social -->
+            </div><!-- /.mobile-nav__top -->
+
+
+
+        </div>
+        <!-- /.mobile-nav__content -->
+    </div>
+    <!-- /.mobile-nav__wrapper -->
+
+    <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+  
+    
+
+ 
+  
+    <script>
+    
+            $('#country-dd').change(function(event){
+              var idCountry = $(this).val();
+                $('#state-dd').html('');
+
+                $.ajax({
+                    url:"{{url('api/fetch-state')}}",
+                    type:'POST',
+                    dataType: 'json',
+                    data:{country_id: idCountry,_token:"{{csrf_token() }}"},
+                    success:function(response){
+                        $('#state-dd').html('<option value="">Select State</option>');
+                        $.each(response.states,function(index,val)
+                        {
+                            $('#state-dd').append('<option value=" '+val.id+' ">'+val.name+' </option>');
+                        });
+                        $('#city-dd').html('<option value="">Select City</option>');
+                    }
+                });
+               
+            });
+
+            $('#state-dd').change(function(event){
+              var idState = $(this).val();
+                $('#city-dd').html('');
+
+                $.ajax({
+                    url:"{{url('api/fetch-cities')}}",
+                    type:'POST',
+                    dataType: 'json',
+                    data:{state_id: idState,_token:"{{csrf_token() }}"},
+                    success:function(response){
+                        $('#city-dd').html('<option value="">Select City</option>');
+                        $.each(response.cities,function(index,val)
+                        {
+                            $('#city-dd').append('<option value=" '+val.id+' ">'+val.name+' </option>');
+                        });
+                    
+                    }
+                });
+               
+            });
+    
+    </script>
+   
+@endsection
